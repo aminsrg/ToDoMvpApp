@@ -1,16 +1,35 @@
-services:
+﻿services:
   postgres:
     image: postgres:15
-    container_name: my_postgres
+    container_name: todomvp_postgres
     restart: always
     environment:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydb
+      POSTGRES_DB: todomvpdb
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  webapi:
+    image: todomvpapp
+    build:
+      context: .
+      dockerfile: ToDoMvpApp.Api/Dockerfile
+    depends_on:
+      - postgres
+    environment:
+      - TODO_DB_CONNECTION=Host=postgres;Port=5432;Database=todomvpdb;Username=myuser;Password=mypassword
+      - ASPNETCORE_ENVIRONMENT=Developmen
+    ports:
+      - "5000:8080"
+    networks:
+      - backend
+
 volumes:
   postgres_data:
+
+networks:
+  backend:
+    driver: bridge
