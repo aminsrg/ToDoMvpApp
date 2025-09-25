@@ -6,7 +6,7 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "TODO_DB_CONNECTION": "Host=localhost;Port=5432;Database=mydb;Username=postgres;Password=MyStrongPassword123"
+        "TODO_DB_CONNECTION": "Host=localhost;Port=5432;Database=mydb;Username=myuser;Password=mypassword"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5139"

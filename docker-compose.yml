@@ -21,15 +21,9 @@
       - postgres
     environment:
       - TODO_DB_CONNECTION=Host=postgres;Port=5432;Database=todomvpdb;Username=myuser;Password=mypassword
-      - ASPNETCORE_ENVIRONMENT=Developmen
+      - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "5000:8080"
-    networks:
-      - backend
 
 volumes:
   postgres_data:
-
-networks:
-  backend:
-    driver: bridge

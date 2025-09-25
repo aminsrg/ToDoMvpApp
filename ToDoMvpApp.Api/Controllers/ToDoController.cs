@@ -18,6 +18,7 @@ public class ToDoController(IMediator mediator) : ControllerBase
     private readonly IMediator _mediator = mediator;
 
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> Create([FromBody] CreateTodoCommand command)
     {
         var id = await _mediator.Send(command);
@@ -25,36 +26,41 @@ public class ToDoController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll([FromQuery] GetToDosQuery query)
     {
-        var res = await _mediator.Send(query);
-        return Ok(res);
+        var todos = await _mediator.Send(query);
+        return Ok(todos);
     }
 
     [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(string id)
     {
-        var res = await _mediator.Send(new GetToDoByIdQuery(id));
-        if (res is null) return NotFound();
-        return Ok(res);
+        var todo = await _mediator.Send(new GetToDoByIdQuery(id));
+        if (todo is null) return NotFound();
+        return Ok(todo);
     }
 
     [HttpGet("by-date")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByDate([FromQuery] DateTime date)
     {
-        var res = await _mediator.Send(new GetToDosByDateQuery(date));
-        return Ok(res);
+        var todos = await _mediator.Send(new GetToDosByDateQuery(date));
+        return Ok(todos);
     }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> Update(string id, [FromBody] UpdateToDoCommand command)
+    [HttpPut]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> Update([FromBody] UpdateToDoCommand command)
     {
-        if (id != command.Id) return BadRequest();
         await _mediator.Send(command);
         return NoContent();
     }
 
     [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> Delete(string id)
     {
         await _mediator.Send(new DeleteToDoCommand(id));

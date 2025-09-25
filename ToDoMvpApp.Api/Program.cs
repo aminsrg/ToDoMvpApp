@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.Text;
 using ToDoMvpApp.Api.Middleware;
 using ToDoMvpApp.Application;
@@ -10,14 +9,20 @@ using ToDoMvpApp.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add application and infrastructure services
 builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
 
+// Controllers
 builder.Services.AddControllers();
+
+// Swagger / OpenAPI
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "ToDoMvpApp API", Version = "v1" });
+
+    // JWT Authorization in Swagger
     c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
         In = Microsoft.OpenApi.Models.ParameterLocation.Header,
@@ -26,6 +31,7 @@ builder.Services.AddSwaggerGen(c =>
         Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
         Scheme = "Bearer"
     });
+
     c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
     {
         {
@@ -42,10 +48,10 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+// JWT Authentication
 var key = builder.Configuration["Jwt:Key"];
 var issuer = builder.Configuration["Jwt:Issuer"];
 
-// JWT Authentication
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -63,7 +69,8 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
     };
 });
-builder.Services.AddHttpContextAccessor(); // to access context in handlers
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -73,6 +80,7 @@ using (var scope = app.Services.CreateScope())
     await db.Database.MigrateAsync();
 }
 
+// Middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -84,9 +92,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthentication();
-app.UseAuthorization();
-app.UseMiddleware<JwtMiddleware>();
-app.MapControllers();
-app.Run();
 
+app.UseAuthentication();
+app.UseMiddleware<JwtMiddleware>();
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
