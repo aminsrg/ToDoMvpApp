@@ -11,25 +11,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{EC7E1F04-ECC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{5AE2D975-6C7D-43AE-8A48-8B3E5AD7C856}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoMvpApp.Domain", "ToDoMvpApp.Domain\ToDoMvpApp.Domain.csproj", "{CF1DC2C8-26B2-4550-A2E0-C40C6711ECF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoMvpApp.Domain", "ToDoMvpApp.Domain\ToDoMvpApp.Domain.csproj", "{CF1DC2C8-26B2-4550-A2E0-C40C6711ECF2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{328D6775-2305-436C-A695-D5BBD62097D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoMvpApp.Common", "ToDoMvpApp.Common\ToDoMvpApp.Common.csproj", "{92965C10-122D-4425-B10B-EA6A655B3D19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoMvpApp.Common", "ToDoMvpApp.Common\ToDoMvpApp.Common.csproj", "{92965C10-122D-4425-B10B-EA6A655B3D19}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{2E0E81BC-21CC-4CA4-82BB-376B9DAABB51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoMvpApp.Infrastructure", "ToDoMvpApp.Infrastructure\ToDoMvpApp.Infrastructure.csproj", "{6B057744-08A0-43D2-BFF0-1558363B2DC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoMvpApp.Infrastructure", "ToDoMvpApp.Infrastructure\ToDoMvpApp.Infrastructure.csproj", "{6B057744-08A0-43D2-BFF0-1558363B2DC0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{BB27B64E-0E2D-4E16-9F20-6320912613B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoMvpApp.Application", "ToDoMvpApp.Application\ToDoMvpApp.Application.csproj", "{A86A6CB3-CBC7-775F-7220-CEABCB7CD9AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoMvpApp.Application", "ToDoMvpApp.Application\ToDoMvpApp.Application.csproj", "{A86A6CB3-CBC7-775F-7220-CEABCB7CD9AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoMvpApp.Api", "ToDoMvpApp.Api\ToDoMvpApp.Api.csproj", "{FADCBA1C-3BA9-9396-5015-4D7D5E48C3A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoMvpApp.Api", "ToDoMvpApp.Api\ToDoMvpApp.Api.csproj", "{FADCBA1C-3BA9-9396-5015-4D7D5E48C3A0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global

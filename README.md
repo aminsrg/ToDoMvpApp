@@ -123,17 +123,32 @@ docker-compose up --build
 
 ## Using Swagger to Call Services
 
+This section explains how to interact with the ToDoMvpApp API using Swagger based on the OpenAPI definition.
+
 1. **Open Swagger UI**  
    Navigate to `http://localhost:5000/swagger` in your browser after running the API.
 
 2. **Sign Up**  
-   - Go to the `Auth → POST /signup` endpoint.  
-   - Provide the required details (e.g., username, email, password).  
-   - Submit the request to create a new user.
+   - Go to the `User → POST /api/User/signup` endpoint.  
+   - Provide the required JSON body:
+     ```json
+     {
+       "username": "your-username",
+       "password": "your-password"
+     }
+     ```
+   - Submit the request to create a new user.  
+   - Response will be `200 OK` if successful.
 
 3. **Login**  
-   - Go to the `Auth → POST /login` endpoint.  
-   - Enter your registered credentials.  
+   - Go to the `User → POST /api/User/login` endpoint.  
+   - Provide the JSON body with your credentials:
+     ```json
+     {
+       "username": "your-username",
+       "password": "your-password"
+     }
+     ```
    - Copy the `token` value from the response (JWT access token).
 
 4. **Authorize with JWT**  
@@ -142,14 +157,44 @@ docker-compose up --build
      ```
      Bearer <your-token-here>
      ```
-   - Click **Authorize** and then **Close**.
+   - Click **Authorize** and then **Close**.  
+   - This will attach the JWT token to all requests requiring authentication.
 
 5. **Call ToDo Services**  
-   - Now you can call endpoints under the `ToDo` section (e.g., create, update, delete, get tasks).  
-   - Swagger will automatically include your JWT Bearer token in the request headers.  
+   - Now you can use endpoints under the `ToDo` tag:
 
-**Note:** Each time the token expires, you must log in again and re-authorize with a fresh token.
+     **Create ToDo** (`POST /api/ToDo`):
+     ```json
+     {
+       "title": "My Task",
+       "description": "Task description",
+       "dueDate": "2025-09-28T15:00:00Z",
+       "reminderAt": "2025-09-28T14:00:00Z"
+     }
+     ```
 
+     **Update ToDo** (`PUT /api/ToDo`):
+     ```json
+     {
+       "id": "task-id",
+       "title": "Updated Task",
+       "description": "Updated description",
+       "dueDate": "2025-09-30T15:00:00Z",
+       "isCompleted": false,
+       "isImportant": true,
+       "repeat": 1,
+       "reminderAt": "2025-09-30T14:00:00Z"
+     }
+     ```
+
+     **Get ToDo List** (`GET /api/ToDo`):
+     - Optional query parameters: `Page`, `PageSize`, `IsCompleted`, `IsImportant`
+
+     **Get ToDo by ID** (`GET /api/ToDo/{id}`)  
+     **Delete ToDo** (`DELETE /api/ToDo/{id}`)  
+     **Get ToDos by Date** (`GET /api/ToDo/by-date?date=2025-09-28T00:00:00Z`)
+
+**Note:** Each time the JWT token expires, you must log in again and re-authorize in Swagger to continue calling protected endpoints.
 ---
 
 ## Project Structure
