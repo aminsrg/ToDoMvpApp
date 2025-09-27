@@ -121,6 +121,37 @@ docker-compose up --build
 
 ---
 
+## Using Swagger to Call Services
+
+1. **Open Swagger UI**  
+   Navigate to `http://localhost:5000/swagger` in your browser after running the API.
+
+2. **Sign Up**  
+   - Go to the `Auth → POST /signup` endpoint.  
+   - Provide the required details (e.g., username, email, password).  
+   - Submit the request to create a new user.
+
+3. **Login**  
+   - Go to the `Auth → POST /login` endpoint.  
+   - Enter your registered credentials.  
+   - Copy the `token` value from the response (JWT access token).
+
+4. **Authorize with JWT**  
+   - In Swagger UI, click the **Authorize** button at the top.  
+   - Enter the token in the format:  
+     ```
+     Bearer <your-token-here>
+     ```
+   - Click **Authorize** and then **Close**.
+
+5. **Call ToDo Services**  
+   - Now you can call endpoints under the `ToDo` section (e.g., create, update, delete, get tasks).  
+   - Swagger will automatically include your JWT Bearer token in the request headers.  
+
+**Note:** Each time the token expires, you must log in again and re-authorize with a fresh token.
+
+---
+
 ## Project Structure
 
 ```
